@@ -27,7 +27,7 @@ As part of this process, FortiSOAR team will help the partner with:
 > - Point of contact to reach out in case of any assistance needed 
 
 * Partner authors and submits a GitHub pull request for the integration 
-FortiSOAR to do an initial sanity check on the integration code and suggest initial change or updates as suitable. Partner will have access to dev branches on the git repo. FortiSOAR will add review comments and once all are addressed, code will be merged to release branch. Only FortiSOAR team will have merge rights to FortiSOAR branch. 
+Refer to https://github.com/fortinet-fortisoar/how-tos/blob/main/SubmitAPullRequest.md for steps to submit a Pull Request. FortiSOAR to do an initial sanity check on the integration code and suggest initial change or updates as suitable. Once the review comments are addressed, code will be merged to release branch. Only FortiSOAR team will have merge rights to FortiSOAR branch. 
 
 * Partner to demo the Integration 
 A suitable time is set forth for the partner to demo the integration. The partner is expected to first demo the security product for which integration is built and then describe how the integration within FortiSOAR can help customers.  
