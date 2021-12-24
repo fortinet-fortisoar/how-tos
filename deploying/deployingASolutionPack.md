@@ -8,8 +8,7 @@
     1. Click **System Settings** and then from the left-navigation, click **Import Wizard**  
        ![Import Wizard option in left navigation](media/importWiz.png) 
     2. On the `Import Wizard` page, click **Import From File** and selected the solution pack zip that you have downloaded, and navigate through the Import Wizard.   
-       ![Importing a Solution Pack zip file](media/importIRCP.png)  
-       **Note**: It is recommended not the change any configurations or options of the imported solution pack zip file.  
+       ![Importing a Solution Pack zip file](media/importIRCP.png) 
 
 Once the import is successfully completed, you can use the solution pack.
 
