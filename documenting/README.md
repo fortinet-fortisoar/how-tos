@@ -13,4 +13,4 @@ Usage:
 
 Output file(s) will be created in the same directory where the script file is. 
 
-Output file type(s) depends on the file argument(s) provided.
+Output file type depend on the file arguments provided.
