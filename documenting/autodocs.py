@@ -22,6 +22,8 @@ logical_operators = {
     '&&': 'and',
     '||': 'or'
 }
+
+
 def write_onchange_param(md_file_fp, param):
     onchange_config_params = param['onchange']
     for on_param in onchange_config_params:
@@ -94,6 +96,7 @@ def adding_release_notes(info_file_path, md_file_fp, display_name, version):
             html = markdown2.markdown(release_note_text)
             md_file_fp.write(html)
 
+
 def add_about_connector_content(md_file_fp, display_name):
     md_file_fp.write("## About the connector\n")
     md_file_fp.write(description)
@@ -146,10 +149,12 @@ def add_prerequisites_content(md_file_fp, display_name):
     else:
         md_file_fp.write("There are no prerequisites to configuring this connector.\n")
 
+
 def add_minimum_permission_section(md_file_fp):
     md_file_fp.write("\n")
     md_file_fp.write("## Minimum Permissions Required\n")
     md_file_fp.write("- N/A\n")
+
 
 def add_configuration_parameters(md_file_fp, display_name, config):
     md_file_fp.write("\n")
@@ -193,6 +198,7 @@ def add_configuration_parameters(md_file_fp, display_name, config):
     md_file_fp.write("</tbody>")
     md_file_fp.write("</table>")
     md_file_fp.write("\n")
+
 
 def parse_condition(condition):
     if condition.startswith("this"):
@@ -259,6 +265,7 @@ def extract_multiple_condition(condition, opr, action_parameters):
 
     except Exception as err:
         print('ERROR: Failed to parse conditional output schema: {0}'.format(err))
+
 
 def add_supported_action_and_output_schema(md_file_fp, operations):
     md_file_fp.write("## Actions supported by the connector\n")
@@ -405,11 +412,11 @@ def add_sample_playbook_content(info_file_path, md_file_fp, connector_name, vers
         "those playbooks and move them to a different collection, since the sample playbook collection gets deleted "
         "during connector upgrade and delete.\n")
 
+
 def add_data_ingestion_section(md_file_fp,display_name):
     md_file_fp.write("## Data Ingestion Support\n")
     md_file_fp.write("Use the Data Ingestion Wizard to easily ingest data into FortiSOAR&trade; by pulling events/alerts/incidents, based on the requirement.\n")
     md_file_fp.write("\n**TODO:** provide the list of steps to configure the ingestion with the screen shots and limitations if any in this section.")
-
 
 
 if __name__ == '__main__':
@@ -464,13 +471,16 @@ if __name__ == '__main__':
             add_data_ingestion_section(md_file_fp, display_name)
         md_file_fp.close()
 
-        # Uncomment this block to generate .html file
-        # html = markdown2.markdown_path(md_file_fp.name, extras=["code-friendly"])
-        # html_file = open(html_file_name, 'w')
-        # html_file.write(html)
-        # html_file.close()
-
-        # os.remove(md_file_name)  # comment out this line to generate .md file
+        if '--html' in sys.argv:
+            html = markdown2.markdown_path(md_file_fp.name, extras=["code-friendly"])
+            html_file = open(html_file_name, 'w')
+            html_file.write(html)
+            html_file.close()
+        if '--md' not in sys.argv:
+            os.remove(md_file_name)
     else:
         print("info.json file does not exist.")
+
+    if '--html' not in sys.argv and '--md' not in sys.argv:
+        print("Please supply at least one file argument (--html or --md)")
 
