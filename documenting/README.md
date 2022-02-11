@@ -9,11 +9,11 @@ Dependencies:
 
 Usage: 
 
-`python3 autodocs.py /path/to/info.json --html`
-
-`python3 autodocs.py /path/to/info.json --md`
-
-`python3 autodocs.py /path/to/info.json --html --md`
+```
+python3 autodocs.py /path/to/info.json --html
+python3 autodocs.py /path/to/info.json --md
+python3 autodocs.py /path/to/info.json --html --md
+```
 
 Output file(s) will be created in the same directory where the script file is. 
 
