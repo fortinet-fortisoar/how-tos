@@ -1,4 +1,4 @@
-# Partner Managed FortiSOAR Contents
+# Partner Managed FortiSOAR Content
  
 
 ## Highlights  
