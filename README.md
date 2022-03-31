@@ -1,4 +1,4 @@
-# Partner Managed FortiSOAR Solution Packs 
+# Partner Managed FortiSOAR Contents
  
 
 ## Highlights  
