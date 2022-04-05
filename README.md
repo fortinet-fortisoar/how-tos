@@ -18,7 +18,7 @@ An email sharing details about the intent can be sent to fsr-integrations@fortin
 > - What prompted you to write this pack?  
 > - Are there any timelines you are looking to complete this by?  
  
-* FortiSOAR team helps partner to setup Git repos, SDK and provides any required help 
+* FortiSOAR team helps partner to setup Git repos, SDK and provides any required help. 
 As part of this process, FortiSOAR team will help the partner with: 
 > - Setting up Git Repos on https://github.com/fortinet-fortisoar/  
 > - Introduce them to Fortinet Developer Network (FNDN) where the SDK, sample integrations, doc generator tool and other documentation is available 
