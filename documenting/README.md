@@ -29,11 +29,11 @@ solution-pack-name\
 │\
 └───docs\
       │---contents.md\
-      │---setup.md\
+      |---setup.md\
       │---usage.md\
-      └───res\
-           │---screenshot1.png\
-           │---screenshot2.png\
-           └───screenshot3.png\
+     + └───res\
+          + │---screenshot1.png\
+          + │---screenshot2.png\
+          + └───screenshot3.png\
  
 The attachment is a zipped file following this template and the illustrated folder structure with a brief description of each heading and topics.
