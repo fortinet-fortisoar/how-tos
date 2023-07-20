@@ -20,7 +20,7 @@ solution-pack-name
 ```
 
 Steps to be followed while creating documentation:
-1. Download the doc automation [`SP-Doc-Automation.zip`](https://github.com/fortinet-fortisoar/how-tos/raw/main/documenting/solution-pack/SP-Doc-Automation.zip)
+1. Download the doc automation [`SP-Doc-Automation.zip`](https://github.com/fortinet-fortisoar/how-tos/blob/main/documenting/automation/solution-pack/SP-Doc-Automation.zip)
 2. Unzip the doc automation folder.
 3. Execute the `main.py` file with passing **Solution Pack** folder path as parser `--sp-path`.
    

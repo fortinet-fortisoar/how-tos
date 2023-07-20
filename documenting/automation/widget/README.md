@@ -25,7 +25,7 @@ widget-name
 ```
 
 Steps to be followed while creating documentation:
-1. Download the doc automation [`Widget-Doc-Automation.zip`](https://github.com/fortinet-fortisoar/how-tos/raw/main/documenting/widget/Widget-Doc-Automation.zip)
+1. Download the doc automation [`Widget-Doc-Automation.zip`](https://github.com/fortinet-fortisoar/how-tos/blob/main/documenting/automation/widget/Widget-Doc-Automation.zip)
 2. Unzip the doc automation folder.
 3. Execute the `main.py` file with passing **Widget** folder path as parser `--widget-path`.
    
