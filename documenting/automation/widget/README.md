@@ -35,4 +35,4 @@ Example:
 ```
 
 > **Note**
-1. Specify solution pack usage under `usage.md` file.
+1. Specify widget usage under `usage.md` file.
