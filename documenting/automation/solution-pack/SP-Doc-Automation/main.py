@@ -2,7 +2,6 @@ from contents import *
 from readme import *
 from usage import *
 from setup import *
-from logging import log
 import zipfile
 from release_note import *
 import logging
@@ -20,27 +19,27 @@ class SolutionPackDocsAutomation:
                 raise Exception(
                     'Provided Solution Pack path \"{0}\" does not exists.'.format(self.sp_path))
             if os.path.isdir(self.sp_path):
-                log(logging.DEBUG,
+                logging.debug(
                     'Provided Solution Pack path: \"{0}\" is a directory.'.format(self.sp_path))
                 sp_dir_path = self.sp_path
             elif zipfile.is_zipfile(self.sp_path):
-                log(logging.DEBUG,
+                logging.debug(
                     'Provided Solution Pack path: \"{0}\" is a zip file.'.format(self.sp_path))
                 sp_dir_path = self.unzip_sp_zip_folder()
-                log(logging.DEBUG, 'Successfully unzip Solution Pack')
+                logging.debug('Successfully unzip Solution Pack')
             else:
                 raise Exception(
                     "Solution Pack should be either folder or zip.")
 
             sp_file_folder_list = os.listdir(sp_dir_path)
             if "info.json" not in sp_file_folder_list:
-                log(logging.ERROR,
+                logging.error(
                     "Solution Pack does not contain info.json file under path: {0}".format(sp_dir_path))
                 return
 
             # Get info.json data
             info_json_data = self.get_info_json_data(sp_dir_path)
-            log(logging.DEBUG, "Successfully read info.json file")
+            logging.debug("Successfully read info.json file")
 
             # check provided path is Solution Pack or not:
             if info_json_data.get('type') != 'solutionpack':
@@ -70,7 +69,6 @@ class SolutionPackDocsAutomation:
             usage.create_usage_file_data()
 
         except Exception as error:
-            logger.log(logging.ERROR, error)
             logger.exception(error)
 
     def unzip_sp_zip_folder(self):
@@ -112,11 +110,11 @@ class SolutionPackDocsAutomation:
         sp_docs_res_path = os.path.join(sp_docs_path, RESOURCE_FOLDER_NAME)
         if not os.path.isdir(sp_docs_path):
             os.mkdir(sp_docs_path)
-            log(logging.DEBUG,
+            logging.debug(
                 "Successfully created {0} folder".format(DOC_FOLDER_NAME))
         if not os.path.isdir(sp_docs_res_path):
             os.mkdir(sp_docs_res_path)
-            log(logging.DEBUG, "Successfully created {0} folder under {1}".format(
+            logging.debug("Successfully created {0} folder under {1}".format(
                 RESOURCE_FOLDER_NAME, DOC_FOLDER_NAME))
         return sp_docs_path, sp_docs_res_path
 
@@ -135,7 +133,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.NOTSET, filename='docs.log', filemode='a',
                         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-    # Create a console
+    # Create a console logger
     console_logger = logging.StreamHandler()
     console_logger.setLevel(logging.DEBUG)
     console_formatter = logging.Formatter(

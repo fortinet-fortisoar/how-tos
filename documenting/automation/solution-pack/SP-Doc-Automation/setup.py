@@ -4,7 +4,6 @@ import requests
 import logging
 from template import *
 from constants import *
-from logging import log
 
 
 class Setup:
@@ -18,7 +17,7 @@ class Setup:
 
     def create_setup_file_data(self):
         setup_file = self.__create_setup_file()
-        log(logging.DEBUG, "Successfully created {0} file".format(
+        logging.debug( "Successfully created {0} file".format(
             SETUP_FILE_NAME))
         self.__create_setup_data(setup_file)
 
@@ -32,20 +31,20 @@ class Setup:
         dependencies_main_content = ''
         if 'dependencies' in self.info_json_data and len(self.info_json_data['dependencies']) > 0:
             dependencies_main_content = self.__create_dependencies_data()
-            log(logging.DEBUG,
+            logging.debug(
                 "Successfully added dependencies data in {0} file".format(SETUP_FILE_NAME))
 
         # Connectors Data
         connectors_main_content = ''
         if 'connectors' in self.info_json_data['contents'] and len(self.info_json_data['contents']) > 0:
             connectors_main_content = self.__create_connector_data()
-            log(logging.DEBUG,
+            logging.debug(
                 "Successfully added connectors data in {0} file".format(SETUP_FILE_NAME))
 
         setup_file.write(setup.substitute(readme_file=README_FILE_NAME, solution_name=self.solution_name,
                          prerequisites_data=dependencies_main_content, setup_connectors_data=connectors_main_content))
         setup_file.close()
-        log(logging.DEBUG,
+        logging.debug(
             "Successfully written data in {0} file".format(SETUP_FILE_NAME))
 
     def __create_dependencies_data(self):
@@ -61,16 +60,16 @@ class Setup:
     def __create_connector_data(self):
         connectors_content = ''
         if 'connectors' not in self.sp_folder_list:
-            log(logging.ERROR, "Solution Pack does not contains Connectors folder under path: {0}".format(
+            logging.error( "Solution Pack does not contains Connectors folder under path: {0}".format(
                 self.sp_dir_path))
             return
         if 'data.json' not in os.listdir(self.sp_dir_path + '/connectors'):
-            log(logging.ERROR,
+            logging.error(
                 'Solution Pack does not contain data.json file under connector folder path: '.format(self.sp_dir_path + '/connectors'))
             return
 
         connector_doc_data = self.__get_fortisoar_connector_doc_data()
-        log(logging.DEBUG, 'Successfully fetched Fortinet FortiSOAR doc link')
+        logging.debug( 'Successfully fetched Fortinet FortiSOAR doc link')
         connector_data_path = self.sp_dir_path + '/connectors/data.json'
         connectors_data_json = json.load(open(connector_data_path))
         for connector in connectors_data_json:
@@ -90,6 +89,6 @@ class Setup:
                 'Connector - \"{0}\" has been not found on FortiSOAR doc {1}'.format(connector_label, FORTISOAR_CONNECTOR_DOC_LINK))
             return ''
         doc_link = title_to_class.get(connector_label)
-        log(logging.DEBUG,
+        logging.debug(
             'Successfully fetched doc link for connector - \"{0}\"'.format(connector_label))
         return doc_link

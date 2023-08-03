@@ -2,7 +2,6 @@ import os
 import logging
 from template import release_note
 from constants import *
-from logging import log
 
 
 class ReleaseNote:
@@ -11,11 +10,11 @@ class ReleaseNote:
 
     def create_release_note_file_data(self):
         release_note_file = self.__create_release_note_file()
-        log(logging.DEBUG, "Successfully created {0} file".format(
+        logging.debug("Successfully created {0} file".format(
             RELEASE_NOTE_FILE_NAME))
         release_note_file.write(release_note.substitute())
         release_note_file.close()
-        log(logging.DEBUG, "Successfully written data in {0} file".format(
+        logging.debug("Successfully written data in {0} file".format(
             RELEASE_NOTE_FILE_NAME))
 
     def __create_release_note_file(self):
