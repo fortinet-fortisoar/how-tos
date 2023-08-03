@@ -86,8 +86,8 @@ class Setup:
         title_to_class = {item['title']: item['class']
                           for item in connector_doc_data.get('connectors')}
         if connector_label not in title_to_class.keys():
-            log(logging.DEBUG,
-                'Doc link for connector - \"{0}\" has not been found.'.format(connector_label))
+            log(logging.INFO,
+                'Connector - \"{0}\" has been not found on FortiSOAR doc {1}'.format(connector_label, FORTISOAR_CONNECTOR_DOC_LINK))
             return ''
         doc_link = title_to_class.get(connector_label)
         log(logging.DEBUG,
