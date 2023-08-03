@@ -1,7 +1,8 @@
 import os
+import json
+import requests
 import logging
 from template import *
-import json
 from constants import *
 
 
@@ -66,9 +67,27 @@ class Setup:
                 'Solution Pack does not contain data.json file under connector folder path: '.format(self.sp_dir_path + '/connectors'))
             return
 
+        connector_doc_data = self.__get_fortisoar_connector_doc_data()
+        logging.debug('Successfully fetched Fortinet FortiSOAR doc link')
         connector_data_path = self.sp_dir_path + '/connectors/data.json'
         connectors_data_json = json.load(open(connector_data_path))
         for connector in connectors_data_json:
-            connectors_content += setup_connectors_data.substitute(connector_name=connector['label'],
-                                                                   connector_description=connector['description'], connector_doc_link='https://docs.fortinet.com/fortisoar/connectors') + '\n'
+            connectors_content += setup_connectors_data.substitute(connector_name=connector['label'], connector_description=connector['description'], connector_doc_link='{0}{1}'.format(
+                FORTISOAR_CONNECTOR_DOC_LINK, self.__get_connector_doc_link(connector_doc_data, connector['label']))) + '\n'
         return connectors_content
+
+    def __get_fortisoar_connector_doc_data(self):
+        response = requests.get(FORTISOAR_CONNECTOR_DOC_API)
+        return json.loads(response.text)
+
+    def __get_connector_doc_link(self, connector_doc_data, connector_label):
+        title_to_class = {item['title']: item['class']
+                          for item in connector_doc_data.get('connectors')}
+        if connector_label not in title_to_class.keys():
+            log(logging.INFO,
+                'Connector - \"{0}\" has been not found on FortiSOAR doc {1}'.format(connector_label, FORTISOAR_CONNECTOR_DOC_LINK))
+            return ''
+        doc_link = title_to_class.get(connector_label)
+        logging.debug(
+            'Successfully fetched doc link for connector - \"{0}\"'.format(connector_label))
+        return doc_link

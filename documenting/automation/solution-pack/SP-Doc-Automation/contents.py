@@ -1,6 +1,6 @@
-import logging
 import os
 import json
+import logging
 from template import *
 from constants import *
 
@@ -226,7 +226,7 @@ class Contents:
     def __create_connectors_data(self):
         content_data = ''
         if 'connectors' not in self.sp_file_folder_list:
-            logging.error('Solution Pack does not contains Connectors folder under path: {0}'.format(
+            logging.error( 'Solution Pack does not contains Connectors folder under path: {0}'.format(
                 self.sp_dir_path))
             return
         if 'data.json' not in os.listdir(self.sp_dir_path + '/connectors'):
