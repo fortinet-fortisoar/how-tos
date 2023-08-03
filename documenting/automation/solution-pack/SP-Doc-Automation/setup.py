@@ -74,12 +74,12 @@ class Setup:
         connector_data_path = self.sp_dir_path + '/connectors/data.json'
         connectors_data_json = json.load(open(connector_data_path))
         for connector in connectors_data_json:
-            connectors_content += setup_connectors_data.substitute(connector_name=connector['label'],
-                                                                   connector_description=connector['description'], connector_doc_link='https://docs.fortinet.com/fortisoar/connectors/{0}'.format(self.__get_connector_doc_link(connector_doc_data, connector['label']))) + '\n'
+            connectors_content += setup_connectors_data.substitute(connector_name=connector['label'], connector_description=connector['description'], connector_doc_link='{0}{1}'.format(
+                FORTISOAR_CONNECTOR_DOC_LINK, self.__get_connector_doc_link(connector_doc_data, connector['label']))) + '\n'
         return connectors_content
 
     def __get_fortisoar_connector_doc_data(self):
-        response = requests.get(FORTISOAR_CONNECTOR_DOC_LINK)
+        response = requests.get(FORTISOAR_CONNECTOR_DOC_API)
         return json.loads(response.text)
 
     def __get_connector_doc_link(self, connector_doc_data, connector_label):
