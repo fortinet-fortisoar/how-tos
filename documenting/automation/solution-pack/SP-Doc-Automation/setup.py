@@ -17,8 +17,7 @@ class Setup:
 
     def create_setup_file_data(self):
         setup_file = self.__create_setup_file()
-        logging.debug( "Successfully created {0} file".format(
-            SETUP_FILE_NAME))
+        logging.debug("Successfully created {0} file".format(SETUP_FILE_NAME))
         self.__create_setup_data(setup_file)
 
     def __create_setup_file(self):
@@ -60,7 +59,7 @@ class Setup:
     def __create_connector_data(self):
         connectors_content = ''
         if 'connectors' not in self.sp_folder_list:
-            logging.error( "Solution Pack does not contains Connectors folder under path: {0}".format(
+            logging.error("Solution Pack does not contains Connectors folder under path: {0}".format(
                 self.sp_dir_path))
             return
         if 'data.json' not in os.listdir(self.sp_dir_path + '/connectors'):
@@ -69,7 +68,7 @@ class Setup:
             return
 
         connector_doc_data = self.__get_fortisoar_connector_doc_data()
-        logging.debug( 'Successfully fetched Fortinet FortiSOAR doc link')
+        logging.debug('Successfully fetched Fortinet FortiSOAR doc link')
         connector_data_path = self.sp_dir_path + '/connectors/data.json'
         connectors_data_json = json.load(open(connector_data_path))
         for connector in connectors_data_json:

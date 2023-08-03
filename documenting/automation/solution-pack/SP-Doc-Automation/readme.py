@@ -13,8 +13,7 @@ class Readme:
 
     def create_readme_file_data(self):
         readme_file = self.__create_readme_file()
-        logging.debug("Successfully created {0} file".format(
-            README_FILE_NAME))
+        logging.debug("Successfully created {0} file".format(README_FILE_NAME))
         certified = 'No'
         if self.info_json_data.get('certified') and self.info_json_data.get('certified') == 'true':
             certified = 'Yes'

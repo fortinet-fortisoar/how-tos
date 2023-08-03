@@ -13,8 +13,7 @@ class Usage:
 
     def create_usage_file_data(self):
         usage_file = self.__create_usage_file()
-        logging.debug("Successfully created {0} file".format(
-            USAGE_FILE_NAME))
+        logging.debug("Successfully created {0} file".format(USAGE_FILE_NAME))
         self.__create_usage_data(usage_file)
 
     def __create_usage_file(self):

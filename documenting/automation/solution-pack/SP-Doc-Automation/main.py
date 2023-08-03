@@ -69,7 +69,7 @@ class SolutionPackDocsAutomation:
             usage.create_usage_file_data()
 
         except Exception as error:
-            logger.exception(error)
+            logging.exception(error)
 
     def unzip_sp_zip_folder(self):
         with zipfile.ZipFile(self.sp_path, 'r') as sp_unzip_path:
