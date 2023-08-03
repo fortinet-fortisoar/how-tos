@@ -3,6 +3,7 @@ import os
 from template import readme
 from constants import *
 from release_note import *
+from logging import log
 
 
 class Readme:
@@ -13,7 +14,8 @@ class Readme:
 
     def create_readme_file_data(self):
         readme_file = self.__create_readme_file()
-        logging.debug("Successfully created {0} file".format(README_FILE_NAME))
+        log(logging.DEBUG, "Successfully created {0} file".format(
+            README_FILE_NAME))
         certified = 'No'
         if self.info_json_data.get('certified') and self.info_json_data.get('certified') == 'true':
             certified = 'Yes'
@@ -30,7 +32,7 @@ class Readme:
         readme_file.write(readme.substitute(version=self.info_json_data['version'], certify=certified, publisher=self.info_json_data['publisher'],
                                             compatible_version=compatible_version, overview=self.info_json_data['description'], docs_name=DOC_FOLDER_NAME, release_note=release_note_content))
         readme_file.close()
-        logging.debug(
+        log(logging.DEBUG,
             "Successfully written data in {0} file".format(README_FILE_NAME))
 
     def __create_readme_file(self):

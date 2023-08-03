@@ -1,8 +1,9 @@
-import logging
 import os
 import json
+import logging
 from template import *
 from constants import *
+from logging import log
 
 
 class Contents:
@@ -37,91 +38,91 @@ class Contents:
         dashboards_contents = ''
         if 'dashboards' in contents_key_list:
             dashboards_contents = self.__create_dashboards_data()
-            logging.debug(
+            log(logging.DEBUG,
                 "Successfully added dashboard data in {0} file".format(CONTENTS_FILE_NAME))
 
         # picklist
         picklists_contents = ''
         if 'picklistNames' in contents_key_list:
             picklists_contents = self.__create_picklists_data()
-            logging.debug(
+            log(logging.DEBUG,
                 "Successfully added picklist data in {0} file".format(CONTENTS_FILE_NAME))
 
         # modules
         modules_contents = ''
         if 'modules' in contents_key_list:
             modules_contents = self.__create_modules_data()
-            logging.debug(
+            log(logging.DEBUG,
                 "Successfully added modules data in {0} file".format(CONTENTS_FILE_NAME))
 
         # global variables
         global_variables_contents = ''
         if 'globalVariables' in contents_key_list:
             global_variables_contents = self.__create_global_variables_data()
-            logging.debug(
+            log(logging.DEBUG,
                 "Successfully added global variables data in {0} file".format(CONTENTS_FILE_NAME))
 
         # roles
         roles_contents = ''
         if 'roles' in contents_key_list:
             roles_contents = self.__create_roles_data()
-            logging.debug(
+            log(logging.DEBUG,
                 "Successfully added roles data in {0} file".format(CONTENTS_FILE_NAME))
 
         # reports
         reports_contents = ''
         if 'reports' in contents_key_list:
             reports_contents = self.__create_reports_data()
-            logging.debug(
+            log(logging.DEBUG,
                 "Successfully added reports data in {0} file".format(CONTENTS_FILE_NAME))
 
         # record sets
         record_sets_contents = ''
         if 'recordSets' in contents_key_list:
             record_sets_contents = self.__create_record_sets_data()
-            logging.debug(
+            log(logging.DEBUG,
                 "Successfully added record sets data in {0} file".format(CONTENTS_FILE_NAME))
 
         # connectors
         connectors_contents = ''
         if 'connectors' in contents_key_list:
             connectors_contents = self.__create_connectors_data()
-            logging.debug(
+            log(logging.DEBUG,
                 "Successfully added connectors data in {0} file".format(CONTENTS_FILE_NAME))
 
         # widgets
         widgets_contents = ''
         if 'widgets' in contents_key_list:
             widgets_contents = self.__create_widgets_data()
-            logging.debug(
+            log(logging.DEBUG,
                 "Successfully added widgets data in {0} file".format(CONTENTS_FILE_NAME))
 
         # playbooks
         playbooks_contents = ''
         if 'playbooks' in contents_key_list:
             playbooks_contents = self.__create_playbooks_data()
-            logging.debug(
+            log(logging.DEBUG,
                 "Successfully added playbooks data in {0} file".format(CONTENTS_FILE_NAME))
 
         # playbook blocks
         playbook_blocks_contents = ''
         if 'playbookBlocks' in contents_key_list:
             playbook_blocks_contents = self.__create_playbook_blocks_data()
-            logging.debug(
+            log(logging.DEBUG,
                 "Successfully added playbook blocks data in {0} file".format(CONTENTS_FILE_NAME))
 
         # rules
         rules_content = ''
         if 'rules' in contents_key_list:
             rules_content = self.__create_rules_data()
-            logging.debug(
+            log(logging.DEBUG,
                 "Successfully added rules data in {0} file".format(CONTENTS_FILE_NAME))
 
         # views
         views_content = ''
         if 'views' in contents_key_list:
             views_content = self.__create_views_data()
-            logging.debug(
+            log(logging.DEBUG,
                 "Successfully added views data in {0} file".format(CONTENTS_FILE_NAME))
 
         solution_name = self.info_json_data['label']
@@ -136,7 +137,7 @@ class Contents:
                                                navigations_data=views_content,
                                                playbook_blocks_data=playbook_blocks_contents))
         contents_file.close()
-        logging.debug(
+        log(logging.DEBUG,
             "Successfully written data in {0} file".format(CONTENTS_FILE_NAME))
 
     def __create_dashboards_data(self):
@@ -190,11 +191,11 @@ class Contents:
 
         for record in self.info_json_data['contents']['recordSets']:
             if record['apiName'] in EXCLUDE_RECORD_SETS:
-                logging.debug(
+                log(logging.DEBUG,
                     "Skipped record {0} as script define.".format(record['apiName']))
                 continue
             if record['apiName'] not in record_folder_list:
-                logging.error(
+                log(logging.ERROR,
                     "Solution Pack does not contains folder for record {0} under path {1}".format(record['apiName'], self.sp_dir_path + '/records'))
                 continue
             record_api_json_file = os.path.join(
@@ -203,7 +204,7 @@ class Contents:
                 record_sets_path.append(
                     {'name': record['name'], 'path': record_api_json_file})
             else:
-                logging.error(
+                log(logging.ERROR,
                     "{0}0001.json file not found in records api folder".format(record['apiName']))
 
         for record_data in record_sets_path:
@@ -226,11 +227,11 @@ class Contents:
     def __create_connectors_data(self):
         content_data = ''
         if 'connectors' not in self.sp_file_folder_list:
-            logging.error('Solution Pack does not contains Connectors folder under path: {0}'.format(
+            log(logging.ERROR, 'Solution Pack does not contains Connectors folder under path: {0}'.format(
                 self.sp_dir_path))
             return
         if 'data.json' not in os.listdir(self.sp_dir_path + '/connectors'):
-            logging.error(
+            log(logging.ERROR,
                 'Solution Pack does not contain data.json file under Connectors folder path: {0}'.format(self.sp_dir_path + '/connectors'))
             return
         connector_data_path = self.sp_dir_path + '/connectors/data.json'
@@ -256,7 +257,7 @@ class Contents:
             playbook_collection_folder_path)
         for playbook_collection in self.info_json_data['contents']['playbooks']:
             if playbook_collection['name'] not in playbook_collection_folder:
-                logging.error(
+                log(logging.ERROR,
                     'Solution Pack does not contain {0} file under playbooks collection folder path: {1}'.format(playbook_collection['name'], playbook_collection_folder_path))
                 return
             for file in os.scandir(playbook_collection_folder_path + '/' + playbook_collection['name']):
@@ -275,7 +276,7 @@ class Contents:
         playbook_block_folder = os.listdir(playbook_block_folder_path)
         for playbook_block in self.info_json_data['contents']['playbookBlocks']:
             if playbook_block['name'] + '.json' not in playbook_block_folder_path:
-                logging.error(
+                log(logging.ERROR,
                     'Solution Pack does not contain {0} file under playbooks block folder path: {1}'.format(playbook_block['name'], playbook_block_folder_path))
                 return
             playbook_block_file_data = json.load(

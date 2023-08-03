@@ -1,8 +1,8 @@
 import os
 import logging
 from template import *
-import json
 from constants import *
+from logging import log
 
 
 class Usage:
@@ -14,7 +14,8 @@ class Usage:
 
     def create_usage_file_data(self):
         usage_file = self.__create_usage_file()
-        logging.debug("Successfully created {0} file".format(USAGE_FILE_NAME))
+        log(logging.DEBUG, "Successfully created {0} file".format(
+            USAGE_FILE_NAME))
         self.__create_usage_data(usage_file)
 
     def __create_usage_file(self):
@@ -24,5 +25,5 @@ class Usage:
     def __create_usage_data(self, usage_file):
         usage_file.write(usage.substitute(readme_file=README_FILE_NAME))
         usage_file.close()
-        logging.debug(
+        log(logging.DEBUG,
             "Successfully written data in {0} file".format(USAGE_FILE_NAME))
