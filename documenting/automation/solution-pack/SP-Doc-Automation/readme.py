@@ -13,7 +13,8 @@ class Readme:
 
     def create_readme_file_data(self):
         readme_file = self.__create_readme_file()
-        logging.debug("Successfully created {0} file".format(README_FILE_NAME))
+        logging.debug(
+            "Successfully created \"{0}\" file".format(README_FILE_NAME))
         certified = 'No'
         if self.info_json_data.get('certified') and self.info_json_data.get('certified') == 'true':
             certified = 'Yes'
@@ -31,7 +32,7 @@ class Readme:
                                             compatible_version=compatible_version, overview=self.info_json_data['description'], docs_name=DOC_FOLDER_NAME, release_note=release_note_content))
         readme_file.close()
         logging.debug(
-            "Successfully written data in {0} file".format(README_FILE_NAME))
+            "Successfully written readme data in \"{0}\" file".format(README_FILE_NAME))
 
     def __create_readme_file(self):
         contents_file_path = os.path.join(self.sp_dir_path, README_FILE_NAME)

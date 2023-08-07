@@ -17,7 +17,7 @@ class SolutionPackDocsAutomation:
         try:
             if not os.path.exists(self.sp_path):
                 raise Exception(
-                    'Provided Solution Pack path \"{0}\" does not exists.'.format(self.sp_path))
+                    'Provided Solution Pack path \"{0}\" does not exists. Please provide proper path.'.format(self.sp_path))
             if os.path.isdir(self.sp_path):
                 logging.debug(
                     'Provided Solution Pack path: \"{0}\" is a directory.'.format(self.sp_path))
@@ -33,9 +33,8 @@ class SolutionPackDocsAutomation:
 
             sp_file_folder_list = os.listdir(sp_dir_path)
             if "info.json" not in sp_file_folder_list:
-                logging.error(
-                    "Solution Pack does not contain info.json file under path: {0}".format(sp_dir_path))
-                return
+                raise Exception(
+                    "Solution Pack does not contain 'info.json' file under path: \"{0}\". Please export the Solution Pack once again.".format(sp_dir_path))
 
             # Get info.json data
             info_json_data = self.get_info_json_data(sp_dir_path)
@@ -44,7 +43,7 @@ class SolutionPackDocsAutomation:
             # check provided path is Solution Pack or not:
             if info_json_data.get('type') != 'solutionpack':
                 raise Exception(
-                    "Provide folder path is not of solution pack type")
+                    "Provide folder path is not of Solution Pack type.")
 
             sp_docs_path, sp_docs_res_path = self.create_docs_folder(
                 sp_dir_path)
@@ -111,10 +110,10 @@ class SolutionPackDocsAutomation:
         if not os.path.isdir(sp_docs_path):
             os.mkdir(sp_docs_path)
             logging.debug(
-                "Successfully created {0} folder".format(DOC_FOLDER_NAME))
+                "Successfully created \"{0}\" folder.".format(DOC_FOLDER_NAME))
         if not os.path.isdir(sp_docs_res_path):
             os.mkdir(sp_docs_res_path)
-            logging.debug("Successfully created {0} folder under {1}".format(
+            logging.debug("Successfully created \"{0}\" folder under \"{1}\"".format(
                 RESOURCE_FOLDER_NAME, DOC_FOLDER_NAME))
         return sp_docs_path, sp_docs_res_path
 
