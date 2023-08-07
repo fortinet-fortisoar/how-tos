@@ -10,11 +10,11 @@ class ReleaseNote:
 
     def create_release_note_file_data(self):
         release_note_file = self.__create_release_note_file()
-        logging.debug("Successfully created {0} file".format(
+        logging.debug("Successfully created \"{0}\" file".format(
             RELEASE_NOTE_FILE_NAME))
         release_note_file.write(release_note.substitute())
         release_note_file.close()
-        logging.debug("Successfully written data in {0} file".format(
+        logging.debug("Successfully added release note data in \"{0}\" file".format(
             RELEASE_NOTE_FILE_NAME))
 
     def __create_release_note_file(self):
