@@ -18,11 +18,9 @@ class Readme:
         version_content = version_data.substitute(version=self.info_json_data['version'])
 
         # Check for Certification
-        certified = 'No'
         if self.info_json_data.get('certified') and self.info_json_data.get('certified') == 'true':
-            certified = 'Yes'
-        certified_content = certified_data.substitute(
-            certify=certified)
+            CERTIFIED = 'Yes'
+        certified_content = certified_data.substitute(certify=CERTIFIED)
 
         # Check for Compatibility
         compatible_version_content = compatible_version_data.substitute(

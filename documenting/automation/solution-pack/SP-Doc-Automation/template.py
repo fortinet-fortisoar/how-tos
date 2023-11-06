@@ -14,27 +14,21 @@ name_description_data = Template('| $name | $description |')
 name_data = Template('| $name |')
 
 # dashboard
-# dashboards_sub_data = Template('| $name | $description |')
 dashboards_data = Template('## Dashboards\n\n|Name|Description|\n| :- | :- |\n$dashboards_sub_data')
 
 # picklist
-# picklists_sub_data = Template('| $name |')
 picklists_data = Template('## Picklist\n\n|Name|\n| :- |\n$picklists_sub_data')
 
 # modules
-# modules_sub_data = Template('| $name | $description |')
 modules_data = Template('## Module Schema\n\n|Name|Description|\n| :- | :- |\n$modules_sub_data')
 
 # global variables
-# global_variables_sub_data = Template('| $name | $description |')
 global_variables_data = Template('## Global Variable\n\n|Name|Description|\n| :- | :- |\n$global_variables_sub_data')
 
 # roles
-# roles_sub_data = Template('| $name | $description |')
 roles_data = Template('## Roles\n\n|Name|Description|\n| :- | :- |\n$roles_sub_data')
 
 # report
-# report_sub_data = Template('| $name | $description |')
 report_head = Template('## Report\n\n| Name | Description |\n| :- | :- |\n$report_sub_data')
 
 # record set
@@ -46,7 +40,6 @@ connectors_sub_data = Template('| $name | $description |')
 connectors_data = Template('## Connector\n\n| Name | Description |\n| :- | :- |\n$connectors_sub_data')
 
 # widget
-# widgets_sub_data = Template('| $name | $description |')
 widgets_data = Template('## Widgets\n\n| Name | Description |\n| :- | :- |\n$widgets_sub_data')
 
 # playbooks
@@ -59,11 +52,9 @@ playbook_blocks_sub_data = Template('| $name | $description |')
 playbook_blocks_data = Template('## Reference Blocks\n\n| Name | Description |\n| :- | :- |\n$playbook_blocks_sub_data')
 
 # rules
-# rules_sub_data = Template('| $name | $description |')
 rules_data = Template('## Rules\n\n| Name | Description |\n| :- | :- |\n$rules_sub_data')
 
 # navigations
-# navigations_sub_data = Template('| $name |')
 navigations_data = Template('## System View\n\n| Name |\n| :- |\n$navigations_sub_data')
 
 # contents

@@ -42,14 +42,7 @@ class Contents:
         dashboards_contents = ''
         if 'dashboards' in contents_key_list:
             dashboard_data = ''
-            new_dashboard_data = [dashboard["name"] for dashboard in self.new_info_json_data["contents"]["dashboards"]]
-            if self.is_new_version:
-                old_dashboard_data = [dashboard["name"] for dashboard in self.old_info_json_data["contents"]["dashboards"]]
-                diff_dashboard_data = list(set(new_dashboard_data) - set(old_dashboard_data))
-                dashboard_data = self.__create_name_and_description_data(diff_dashboard_data, True, dashboard_data)
-                dashboard_data = self.__create_name_and_description_data(old_dashboard_data, False, dashboard_data)
-            else:
-                dashboard_data = self.__create_name_and_description_data(new_dashboard_data, False, dashboard_data)
+            dashboard_data = self.__create_common_content_data('dashboards', True)
             dashboards_contents = dashboards_data.substitute(dashboards_sub_data=dashboard_data)
             logging.debug(f"Successfully fetched \"Dashboard\" data in {CONTENTS_FILE_NAME} file")
 
@@ -57,14 +50,7 @@ class Contents:
         picklists_contents = ''
         if 'picklistNames' in contents_key_list:
             picklist_data = ''
-            new_picklist_data = [picklist["name"] for picklist in self.new_info_json_data["contents"]["picklistNames"]]
-            if self.is_new_version:
-                old_picklist_data = [picklist["name"] for picklist in self.old_info_json_data["contents"]["picklistNames"]]
-                diff_picklist_data = list(set(new_picklist_data) - set(old_picklist_data))
-                picklist_data = self.__create_name_data(diff_picklist_data, True, picklist_data)
-                picklist_data = self.__create_name_data(old_picklist_data, False, picklist_data)
-            else:
-                picklist_data = self.__create_name_data(new_picklist_data, False, picklist_data)
+            picklist_data = self.__create_common_content_data('picklistNames', False)
             picklists_contents = picklists_data.substitute(picklists_sub_data=picklist_data)
             logging.debug(f"Successfully fetched \"Picklist\" data in {CONTENTS_FILE_NAME} file")
 
@@ -87,14 +73,7 @@ class Contents:
         global_variables_contents = ''
         if 'globalVariables' in contents_key_list:
             global_variable_data = ''
-            new_global_variables_data = [globalVariable["name"] for globalVariable in self.new_info_json_data["contents"]["globalVariables"]]
-            if self.is_new_version:
-                old_global_variables_data = [globalVariable["name"] for globalVariable in self.old_info_json_data["contents"]["globalVariables"]]
-                diff_global_variables_data = list(set(new_global_variables_data) - set(old_global_variables_data))
-                global_variable_data = self.__create_name_and_description_data(diff_global_variables_data, True, global_variable_data)
-                global_variable_data = self.__create_name_and_description_data(old_global_variables_data, False, global_variable_data)
-            else:
-                global_variable_data = self.__create_name_and_description_data(new_global_variables_data, False, global_variable_data)
+            global_variable_data = self.__create_common_content_data('globalVariables', True)
             global_variables_contents = global_variables_data.substitute(global_variables_sub_data=global_variable_data)
             logging.debug(f"Successfully fetched \"Global Variables\" data in {CONTENTS_FILE_NAME} file")
 
@@ -102,14 +81,7 @@ class Contents:
         roles_contents = ''
         if 'roles' in contents_key_list:
             role_data = ''
-            new_role_data = [role["name"] for role in self.new_info_json_data["contents"]["roles"]]
-            if self.is_new_version:
-                old_role_data = [role["name"] for role in self.old_info_json_data["contents"]["roles"]]
-                diff_role_data = list(set(new_role_data) - set(old_role_data))
-                role_data = self.__create_name_and_description_data(diff_role_data, True, role_data)
-                role_data = self.__create_name_and_description_data(old_role_data, False, role_data)
-            else: 
-                role_data = self.__create_name_and_description_data(new_role_data, False, role_data)
+            role_data = self.__create_common_content_data('roles', True)
             roles_contents = roles_data.substitute(roles_sub_data=role_data)
             logging.debug(f"Successfully fetched \"Roles\" data in {CONTENTS_FILE_NAME} file")
 
@@ -117,14 +89,7 @@ class Contents:
         reports_contents = ''
         if 'reports' in contents_key_list:
             report_data = ''
-            new_report_data = [report["name"] for report in self.new_info_json_data["contents"]["reports"]]
-            if self.is_new_version:
-                old_reports_data = [reports["name"] for reports in self.old_info_json_data["contents"]["reports"]]
-                diff_reports_data = list( set(new_report_data) - set(old_reports_data))
-                report_data = self.__create_name_and_description_data(diff_reports_data, True, report_data)
-                report_data = self.__create_name_and_description_data(old_reports_data, False, report_data)
-            else:
-                report_data = self.__create_name_and_description_data(new_report_data, False, report_data)
+            report_data = self.__create_common_content_data('reports', True)
             reports_contents = report_head.substitute(report_sub_data=report_data)
             logging.debug(f"Successfully fetched \"Reports\" data in {CONTENTS_FILE_NAME} file")
 
@@ -173,14 +138,7 @@ class Contents:
         widgets_contents = ''
         if 'widgets' in contents_key_list:
             widget_data = ''
-            new_widget_data = [widget["name"] for widget in self.new_info_json_data["contents"]["widgets"]]
-            if self.is_new_version:
-                old_widget_data = [widget["name"] for widget in self.old_info_json_data["contents"]["widgets"]]
-                diff_widget_data = list(set(new_widget_data) - set(old_widget_data))
-                widget_data = self.__create_name_and_description_data(diff_widget_data, True, widget_data)
-                widget_data = self.__create_name_and_description_data(old_widget_data, False, widget_data)
-            else:
-                widget_data = self.__create_name_and_description_data(new_widget_data, False, widget_data)
+            widget_data = self.__create_common_content_data('widgets', True)
             widgets_contents = widgets_data.substitute(widgets_sub_data=widget_data)
             logging.debug(f"Successfully fetched \"Widgets\" data in {CONTENTS_FILE_NAME} file")
 
@@ -286,6 +244,25 @@ class Contents:
         contents_file.close()
         logging.debug(f"Successfully written contents data in {CONTENTS_FILE_NAME} file")
 
+    def __create_common_content_data(self, contents_key, to_add_only_name):
+        content_data = ''
+        new_content_data = [content["name"] for content in self.new_info_json_data["contents"][contents_key]]
+        if not self.is_new_version:
+            if to_add_only_name:
+                content_data = self.__create_name_data(new_content_data, False, content_data)
+            else:
+                content_data = self.__create_name_and_description_data(new_content_data, False, content_data)
+            return content_data
+        old_content_data = [content["name"] for content in self.old_info_json_data["contents"][contents_key]]
+        diff_content_data = list(set(new_content_data) - set(old_content_data))
+        if to_add_only_name:
+            content_data = self.__create_name_data(diff_content_data, True, content_data)
+            content_data = self.__create_name_data(old_content_data, False, content_data)
+        else:
+            content_data = self.__create_name_and_description_data(diff_content_data, True, content_data)
+            content_data = self.__create_name_and_description_data(old_content_data, False, content_data)
+        return content_data
+
     def __create_name_and_description_data(self, data_list, new_version, content_data):
         for data in data_list:
             if new_version:
@@ -299,48 +276,6 @@ class Contents:
                 data += ' <sup>New</sup>'
             content_data += name_data.substitute(name=data) + '\n'
         return content_data
-
-    # def __create_dashboards_data(self, dashboard_data, new_version, content_data):
-    #     for dashboard_name in dashboard_data:
-    #         if new_version:
-    #             dashboard_name += ' <sup>New</sup>'
-    #         content_data += dashboards_sub_data.substitute(name=dashboard_name, description='') + '\n'
-    #     return content_data
-
-    # def __create_picklists_data(self, picklist_data, new_version, content_data):
-    #     for picklist_name in picklist_data:
-    #         if new_version:
-    #             picklist_name += ' <sup>New</sup>'
-    #         content_data += picklists_sub_data.substitute(name=picklist_name) + '\n'
-    #     return content_data
-
-    # def __create_modules_data(self, module_data, new_version, content_data):
-    #     for module_name in module_data:
-    #         if new_version:
-    #             module_name += ' <sup>New</sup>'
-    #         content_data += modules_sub_data.substitute(name=module_name, description='') + '\n'
-    #     return content_data
-
-    # def __create_global_variables_data(self, global_variable_data, new_version, content_data):
-    #     for global_variable in global_variable_data:
-    #         if new_version:
-    #             global_variable += ' <sup>New</sup>'
-    #         content_data += global_variables_sub_data.substitute(name=global_variable, description='') + '\n'
-    #     return content_data
-
-    # def __create_roles_data(self, role_data, new_version, content_data):
-    #     for role in role_data:
-    #         if new_version:
-    #             role += ' <sup>New</sup>'
-    #         content_data += roles_sub_data.substitute(name=role, description='') + '\n'
-    #     return content_data
-
-    # def __create_reports_data(self, report_data, new_version, content_data):
-    #     for report in report_data:
-    #         if new_version:
-    #             report += ' <sup>New</sup>'
-    #         content_data += report_sub_data.substitute(name=report, description='') + '\n'
-    #     return content_data
 
     def __create_record_set_path_file(self, record_sets_data, record_folder_list):
         record_sets_json_path = []
@@ -369,6 +304,14 @@ class Contents:
                         data['name'] += ' <sup>New</sup>'
                     content_sub_data += record_sets_sub_data.substitute(data1=data['name'], data2=data['description']) + '\n'
                 elif data['@type'] == 'Scenario':
+                    if new_version:
+                        data['title'] += ' <sup>New</sup>'
+                    content_sub_data += record_sets_sub_data.substitute(data1=data['title'], data2='') + '\n'
+                elif data['@type'] == 'OutbreakAlert':
+                    if new_version:
+                        data['title'] += ' <sup>New</sup>'
+                    content_sub_data += record_sets_sub_data.substitute(data1=data['title'], data2='') + '\n'
+                elif data['@type'] == 'ThreatHuntRule':
                     if new_version:
                         data['title'] += ' <sup>New</sup>'
                     content_sub_data += record_sets_sub_data.substitute(data1=data['title'], data2='') + '\n'
@@ -412,13 +355,6 @@ class Contents:
                 connector['label'] += ' <sup>New</sup>' 
             content_data += connectors_sub_data.substitute(name=connector['label'], description=connector['description']) + '\n'
         return content_data
-
-    # def __create_widgets_data(self, widget_data, new_version, content_data):
-    #     for widget in widget_data:
-    #         if new_version:
-    #             widget += ' <sup>New</sup>'
-    #         content_data += report_sub_data.substitute(name=widget, description='') + '\n'
-    #     return content_data
 
     def __create_collection_playbook_data(self, playbook_collection_name, new_version, playbook_collection_folder_path, content_data):
         content_sub_data = ''
@@ -474,17 +410,3 @@ class Contents:
                 playbook_block += ' <sup>New</sup>'
             content_data += playbook_blocks_sub_data.substitute(name=playbook_block, description=playbook_block_file_data['description'].replace('\n', '')) + '\n'
         return content_data
-
-    # def __create_rules_data(self, rule_data, new_version, content_data):
-    #     for rule in rule_data:
-    #         if new_version:
-    #             rule += ' <sup>New</sup>'
-    #         content_data += rules_sub_data.substitute(name=rule, description='') + '\n'
-    #     return content_data
-
-    # def __create_views_data(self, view_data, new_version, content_data):
-    #     for view in view_data:
-    #         if new_version:
-    #             view += ' <sup>New</sup>'
-    #         content_data += navigations_sub_data.substitute(name=view) + '\n'
-    #     return content_data
