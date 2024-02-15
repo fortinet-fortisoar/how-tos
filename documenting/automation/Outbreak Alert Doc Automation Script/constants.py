@@ -1,0 +1,10 @@
+README_FILE_NAME = 'README.md'
+CONTENTS_FILE_NAME = 'contents.md'
+SETUP_FILE_NAME = 'setup.md'
+USAGE_FILE_NAME = 'usage.md'
+DOC_FOLDER_NAME = 'docs'
+RESOURCE_FOLDER_NAME = 'res'
+CERTIFIED = "NO"
+SIGMA_PICKLIST_VALUE = "/api/3/picklists/fa026fd2-2b2f-45b0-80aa-61eda4f9a007"
+FORTINET_FABRIC_PICKLIST_VALUE = "/api/3/picklists/8188b8c7-6f77-4f28-8b87-11c7ceef84dc"
+YARA_PICKLIST_VALUE = "/api/3/picklists/d2bc7e39-adae-4325-a506-e9e7c06f3420"
