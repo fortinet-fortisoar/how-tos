@@ -1,6 +1,4 @@
 import os
-import json
-import requests
 import logging
 from template import *
 from constants import *

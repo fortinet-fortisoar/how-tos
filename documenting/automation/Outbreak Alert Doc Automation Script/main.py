@@ -2,17 +2,20 @@ from contents import *
 from readme import *
 from usage import *
 from setup import *
+from specs import Specs
 import zipfile
 import logging
 import argparse
 from urllib.parse import urlparse
 import sys
+import json
 
 
 class SolutionPackDocsAutomation:
 
-    def __init__(self, sp_dir_path):
+    def __init__(self, sp_dir_path,sp_specs):
         self.sp_dir_path = str(sp_dir_path)
+        self.sp_specs = sp_specs
 
     def create_docs(self):
         try:
@@ -74,6 +77,11 @@ class SolutionPackDocsAutomation:
             usage = Usage(self.sp_dir_path, sp_docs_path, info_json_data,outbreak_alert_data,threat_hunt_rules_data)
             usage.create_usage_file_data()
 
+            # Specs
+            if self.sp_specs:
+                specs = Specs(self.sp_dir_path, sp_docs_path, info_json_data,outbreak_alert_data,threat_hunt_rules_data)
+                specs.create_specs_file_data()
+            
             logging.debug(
                 'Successfully created doc for Solution Pack "'
                 + info_json_data["label"]
@@ -119,38 +127,6 @@ class SolutionPackDocsAutomation:
 
         return sp_docs_path, sp_docs_res_path
 
-    def download_and_create_md_files(self, url, base_folder, is_res_folder):
-        response = requests.get(url)
-
-        if response.status_code == 200:
-            contents = response.json()
-
-            for item in contents:
-                if item["type"] == "file":
-                    item_url = item["download_url"]
-                    file_name = os.path.join(base_folder, item["name"])
-
-                    # Check if the file is an image (based on file extension)
-                    if is_res_folder and item["name"].lower().endswith(
-                        (".png", ".jpg", ".jpeg", ".gif", ".bmp")
-                    ):
-                        file_content = requests.get(item_url).content
-                        with open(file_name, "wb") as file:
-                            file.write(file_content)
-                        logging.debug(f"Downloaded image: {file_name}")
-
-                    # Check if the file is a markdown (.md) file
-                    elif not is_res_folder and item["name"].endswith(".md"):
-                        file_content = requests.get(item_url).text
-                        with open(file_name, "w", encoding="utf-8") as file:
-                            file.write(file_content)
-                        logging.debug(f"Downloaded and created: {file_name}")
-        else:
-            raise Exception(
-                f"Failed to fetch contents from {url}. Status code: {response.status_code}"
-            )
-
-
 # Get Solution Pack details
 def _get_sp_details() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
@@ -158,16 +134,10 @@ def _get_sp_details() -> argparse.Namespace:
         "--sp-path", nargs="+", help="Path of Solution Pack", required=True
     )
     parser.add_argument(
-        "--sp-repo-name",
-        nargs=1,
-        help="Provide the github Solution Pack repo name",
+        "--sp-specs",
+        help="Specify this tag, If you want to create Specs for this Solution Pack",
         required=False,
-    )
-    parser.add_argument(
-        "--old-version-branch-name",
-        nargs=1,
-        help="Provide the github old version branch name of Solution Pack",
-        required=False,
+        action="store_true"
     )
     return parser.parse_args()
 
@@ -208,6 +178,14 @@ def _is_sp_path_valid(sp_path: str) -> tuple[bool, str]:
 
 
 def unzip_zip_folder(sp_path: str) -> str:
+    """Unzip a given zip file at a given path.
+
+    Args:
+        sp_path (str): Provide a path to the zip file.
+
+    Returns:
+        str: The final path to the extracted zip folder.
+    """
     with zipfile.ZipFile(sp_path, "r") as unzip_path:
         # Setting the Directory Path of the zip file and Extracting the Zip file to the same directory
         directory_path = os.path.dirname(unzip_path.filename)
@@ -222,7 +200,9 @@ def unzip_zip_folder(sp_path: str) -> str:
 
 
 def create_log_file() -> None:
-    # Create a log file with Path same as this script with name docs.log
+    """
+    Creates a log file with path same as this script with name docs.log
+    """
     log_filename = os.path.join(os.path.dirname(os.path.realpath(__file__)), "docs.log")
     logging.basicConfig(
         level=logging.NOTSET,
@@ -247,7 +227,8 @@ if __name__ == "__main__":
     args = _get_sp_details()
     # Create Log files
     create_log_file()
+    logging.debug(args)
     sp_dir_path = _is_argument_data_valid(args)
 
-    docs_obj = SolutionPackDocsAutomation(sp_dir_path)
+    docs_obj = SolutionPackDocsAutomation(sp_dir_path, args.sp_specs)
     docs_obj.create_docs()

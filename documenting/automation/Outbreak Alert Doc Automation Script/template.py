@@ -21,3 +21,6 @@ setup = Template("[Home](../README.md) |\n | -----------------------------------
 
 # usage
 usage = Template("[Home](../README.md) |\n| -------------------------------------------- |\n\n# Usage\n\nTo investigate the alert, perform the following steps:\n\n1. Under the FortiSOAR&trade;'s left navigation panel, select **Outbreak Management** > **Outbreak Alerts**.\n2. Open the record **$title**.\n3. Click the button **Execute**.\n4. Select **Investigate Outbreak** on the outbreak alert's screen to start the investigation.\n\n# Next Steps\n\n| [Installation](./setup.md#installation) | [Configuration](./setup.md#configuration) | [Contents](./contents.md) |\n|-----------------------------------------|-------------------------------------------|---------------------------|")
+
+#specs
+scope = Template("This specs describes how to use a FortiGuard Outbreak Alert in FortiSOAR to raise an Alert for an Incident Response related to attacks that attempt to leverage the $title.\n\nFortiGuard Outbreak Report: $link \n\nThis Solution Pack's Outbreak Alert Investigate using Outbreak Response Framework (PMDB: https://pmdb.fortinet.com/ProjectManagement/editprojects.php?id=23011) \nThe following is an ideal flow to use the Outbreak Response Framework Solution Pack: \n\nCurrent Scope:")
