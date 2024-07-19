@@ -94,7 +94,7 @@ def add_about_connector_content(md_file_fp, display_name):
 
 
 def add_version_info(md_file_fp, display_name, version, publisher, approved):
-    md_file_fp.write("### Version information\n")
+    md_file_fp.write("\n### Version information\n")
     md_file_fp.write("\n")
     md_file_fp.write("Connector Version: {version}\n".format(version=version))
     md_file_fp.write("\n")
@@ -112,7 +112,7 @@ def add_version_info(md_file_fp, display_name, version, publisher, approved):
 
 
 def add_installing_connector_content(md_file_fp, connector_name):
-    md_file_fp.write("## Installing the connector\n")
+    md_file_fp.write("\n## Installing the connector\n")
     md_file_fp.write(
         "<p>Use the <strong>Content Hub</strong> to install the connector. For "
         "the detailed procedure to install a connector, "
@@ -252,7 +252,7 @@ def extract_multiple_condition(condition, opr, action_parameters):
         print('ERROR: Failed to parse conditional output schema: {0}'.format(err))
 
 def add_supported_action_and_output_schema(md_file_fp, operations):
-    md_file_fp.write("## Actions supported by the connector\n")
+    md_file_fp.write("\n## Actions supported by the connector\n")
     md_file_fp.write(
         "The following automated operations can be included in playbooks and you can also use the annotations "
         "to access operations from FortiSOAR&trade; release 4.10.0 and onwards:\n")
@@ -280,7 +280,7 @@ def add_supported_action_and_output_schema(md_file_fp, operations):
 
     for action in operations:
         if not (action.get('visible', True) is False or action.get('enabled', True) is False):
-            md_file_fp.write("### operation: {0}\n".format(action['title']))
+            md_file_fp.write("\n### operation: {0}\n".format(action['title']))
             md_file_fp.write("#### Input parameters\n")
             if not action['parameters'] or action['parameters'] == [{}]:
                 md_file_fp.write("None.\n")
@@ -315,7 +315,7 @@ def add_supported_action_and_output_schema(md_file_fp, operations):
                 md_file_fp.write("\n")
 
         # Output Schema for actions----------------------------------------------------------------------------------
-            md_file_fp.write("#### Output\n")
+            md_file_fp.write("\n#### Output\n")
             if 'output_schema' in action and action['output_schema'] != {} and action['output_schema'] != []:
                 md_file_fp.write("The output contains the following populated JSON schema:")
                 md_file_fp.write("\n")
@@ -463,6 +463,6 @@ if __name__ == '__main__':
         html_file.write(html)
         html_file.close()
 
-        os.remove(md_file_name)  # comment out this line to generate .md file
+        # os.remove(md_file_name)  # comment out this line to generate .md file
     else:
         print("Info.json file does not exist.")
